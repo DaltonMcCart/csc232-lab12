@@ -107,3 +107,4 @@ void fileReadError(const std::string& filename) {
     std::cerr << "Terminating program abnormally" << std::endl;
     exit(EXIT_FAILURE);
 }
+

@@ -42,13 +42,35 @@ int JumpItGame::play(Technique technique) {
 // private helper function implementations
 
 int JumpItGame::jumpItBottomUp(std::vector<int> board) {
-    // TODO: Implement me
-    return 0;
+    int n = len(board);
+
+    buCacheTable[n - 1] = board[n - 1];
+    buCacheTable[n-2] = board[n-2] + board[n-1];
+
+    for (int i = n-3; i > -1; i--){
+        buCacheTable[i] = board[i] + std::min(buCacheTable[i+1], buCacheTable[i+2]);
+    }
+    return buCacheTable[0];
 }
 
 int JumpItGame::jumpItTopDown(std::vector<int> board, int currentPosition) {
-    // TODO: Implement me
-    return 0;
+    int n = len(board);
+
+    if (tdCacheTable[currentPosition] == 0) {
+        if (currentPosition == n - 1){
+            tdCacheTable[currentPosition] = board[n-1];
+        }
+        else if (currentPosition == n-2) {
+            tdCacheTable[currentPosition] = board[n-2] + board[n-1];
+        }
+        else {
+            int tdCacheTable1 = jumpItTopDown(board, currentPosition+1);
+            int tdCacheTable2 = jumpItTopDown(board, currentPosition+2);
+            tdCacheTable[currentPosition] = board[currentPosition] + std::min(tdCacheTable1, tdCacheTable2);
+        }
+    }
+
+    return tdCacheTable[currentPosition];
 }
 
 int JumpItGame::len(std::vector<int> board) {
