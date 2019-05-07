@@ -56,7 +56,7 @@ int JumpItGame::jumpItBottomUp(std::vector<int> board) {
 int JumpItGame::jumpItTopDown(std::vector<int> board, int currentPosition) {
     int n = len(board);
 
-    if (tdCacheTable[currentPosition] == 0) {
+    if (tdCacheTable[currentPosition] == NULL) {
         if (currentPosition == n - 1){
             tdCacheTable[currentPosition] = board[n-1];
         }
